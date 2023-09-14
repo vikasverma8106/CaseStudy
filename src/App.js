@@ -8,13 +8,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Footer from "./components/footer/footer.jsx";
 
-
 function App() {
   return (
     <div className="App">
+      <body></body>
       <Navigation />
       <Routes>
-        <Route path="/" element={<Login/>} />
+        <Route path="/" element={<Login />} />
       </Routes>
       {/* <Footer/> */}
     </div>
