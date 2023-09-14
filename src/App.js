@@ -10,6 +10,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Footer from "./components/footer/footer.jsx";
 import Dashboard from "./routes/customerDashboard/dashboard";
+import AdminPage from "./routes/adminDashboard/dashboard"
 
 function App() {
   return (
@@ -20,8 +21,8 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard/>}/>
         <Route path="/book/:stationid" element={<BookingPage/>}/>
+        <Route path="/admin/dashboard/:id" element={<AdminPage/>}/>
       </Routes>
-      {/* <Footer/> */}
     </div>
   );
 }

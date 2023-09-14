@@ -13,6 +13,7 @@ export default function Navigation() {
         localStorage.setItem('authtoken', '');
         localStorage.setItem('role', '');
         localStorage.setItem('name', '');
+        localStorage.setItem('id', '');
         navigate("/");
     }
 

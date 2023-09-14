@@ -58,7 +58,7 @@ export default function Login() {
                     alert("Something went wrong")
                 }
             });
-    }
+    };
 
     const sendRequestLogin = (event) => {
         const username = event.target.username.value;
@@ -73,14 +73,20 @@ export default function Login() {
             .then(response => {
                 if (response.data.type = "success") {
                     localStorage.setItem('authtoken', response.data.jwtToken);
-                    localStorage.setItem('role', response.data.userrole);
+                    localStorage.setItem('role',response.data.userrole);
                     localStorage.setItem('name', response.data.name);
+                    localStorage.setItem('id', response.data.userid);
                     console.log(response.data);
-                    navigate("/dashboard");
+                    if(response.data.userrole === 'admin'){
+                        navigate("/admin/dashboard/" + response.data.userid)
+                    }else{
+                        navigate("/dashboard");
+                    }
                 } else {
                     localStorage.setItem('authtoken', '');
                     localStorage.setItem('role', '');
                     localStorage.setItem('name', '');
+                    localStorage.setItem('id', '');
                     console.log(response.data);
                     alert("Something went wrong")
                 }
@@ -89,6 +95,7 @@ export default function Login() {
                 localStorage.setItem('authtoken', '');
                 localStorage.setItem('role', '');
                 localStorage.setItem('name', '');
+                localStorage.setItem('id', '');
                 if (response.response) {
                     alert(response.response.data.message);
                 } else {

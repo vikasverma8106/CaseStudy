@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -13,6 +13,15 @@ const BookingPage = () => {
   const [endTime, setEndTime] = useState('');
   const [availablePorts, setAvailablePorts] = useState([]);
   const [isAvailabilityChecked, setIsAvailabilityChecked] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('authtoken')
+    if(!token){
+      console.log("no token")
+      navigate("/")
+    }
+  }, []);
+
 
   const checkAvailability = (event) => {
 
