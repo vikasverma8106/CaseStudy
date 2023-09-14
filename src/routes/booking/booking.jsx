@@ -1,62 +1,74 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
-import axios from 'axios';
+import axios from '../../axios/axios';
 
 const BookingPage = () => {
-  const { stationId } = useParams();
-  
+  const { stationid } = useParams();
+  const navigate = useNavigate();
+
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
   const [availablePorts, setAvailablePorts] = useState([]);
   const [isAvailabilityChecked, setIsAvailabilityChecked] = useState(false);
 
-  const checkAvailability = () => {
-    const selectedStartTime = startTime;
-    const selectedEndTime = endTime;
+  const checkAvailability = (event) => {
 
-    // Define the API endpoint where you want to check availability
-    const apiUrl = '/api/check-availability'; // Replace with your actual API endpoint
+    const form = event.currentTarget;
+    event.preventDefault();
 
-    // Prepare the request body with the selected time range
-    const requestBody = {
-      startTime: selectedStartTime,
-      endTime: selectedEndTime,
-    };
+    if (form.checkValidity() === false) {
+      event.stopPropagation();
+      return;
+    }
 
-    // Make an Axios POST request to check availability
-    axios
-      .post(apiUrl, requestBody)
-      .then((response) => {
-        // Handle the response from the server
-        const { availablePorts } = response.data;
-
-        // Update the availablePorts state with the received data
+    axios.post('/customer/ports',{
+      StartTime: new Date(startTime).toISOString(),
+      EndTime: new Date(endTime).toISOString(),
+      Stationid: stationid
+    }).then((response) => {
+        const availablePorts  = response.data.ports;
         setAvailablePorts(availablePorts);
-
-        // Set the flag to indicate that availability has been checked
         setIsAvailabilityChecked(true);
       })
       .catch((error) => {
         console.error('Error checking availability:', error);
+        alert("something went wrong");
       });
   };
 
-  const DisplayStatus = () => {
-    // Implement your logic here if needed
+  const handleBooking = () => {
+    axios.post('/customer/book',{
+      StartTime: new Date(startTime).toISOString(),
+      EndTime: new Date(endTime).toISOString(),
+      Stationid: stationid
+    }).then((response) => {
+        if(response.data.type === "success"){
+          navigate(-1);
+          alert("Port booked successfully. Your booking id is " + response.data.id);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        if(error.response.data)
+          alert(error.response.data.message);
+        else
+          alert("something went wrong");
+      });
   };
 
   return (
     <div>
       <h1>Booking Page</h1>
-      
+
       <div>
-        <Form>
+        <Form onSubmit={checkAvailability}>
           <Form.Group>
             <Form.Label>Select Start Time:</Form.Label>
             <Form.Control
+              required
               type="datetime-local"
               value={startTime}
               onChange={(e) => setStartTime(e.target.value)}
@@ -65,12 +77,13 @@ const BookingPage = () => {
           <Form.Group>
             <Form.Label>Select End Time:</Form.Label>
             <Form.Control
+              required
               type="datetime-local"
               value={endTime}
               onChange={(e) => setEndTime(e.target.value)}
             />
           </Form.Group>
-          <Button variant="primary" onClick={checkAvailability}>
+          <Button variant="primary" type='submit'>
             Check Availability
           </Button>
         </Form>
@@ -82,7 +95,7 @@ const BookingPage = () => {
                 <div key={index}>
                   <ListGroup.Item>
                     <p>Port {index + 1}</p>
-                    <Button onClick={DisplayStatus}>Book Now</Button>
+                    <Button onClick={handleBooking}>Book Now</Button>
                   </ListGroup.Item>
                 </div>
               ))}

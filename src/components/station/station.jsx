@@ -16,10 +16,10 @@ const Station = ({ station }) => {
     //<NavLink style={navLinkStyles} to={`/station/${station.id}`} className="station-link">
       <div style={stationCardStyles}  className="station-card">
         <h2>{station.name}</h2>
-        <h3>No. of Ports: {station.port}</h3>
+        <h3>No. of Ports: {station.ports}</h3>
         <h4>{station.Availability}</h4>
         <p>Location: {station.location}</p>
-        <Link to={`/book/${station.id}`} className="btn btn-primary">
+        <Link to={`/book/${station.stationid}`} className="btn btn-primary">
         Book Now
       </Link>
         

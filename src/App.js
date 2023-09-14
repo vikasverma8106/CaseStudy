@@ -1,12 +1,15 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 
+import PrivateRoute from "./components/ProtectedRoute/protectedroute";
 import Navigation from "./components/navbar/navigation";
 import Login from "./routes/Login/Login";
+import BookingPage from "./routes/booking/booking";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Footer from "./components/footer/footer.jsx";
+import Dashboard from "./routes/customerDashboard/dashboard";
 
 function App() {
   return (
@@ -15,6 +18,8 @@ function App() {
       <Navigation />
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard/>}/>
+        <Route path="/book/:stationid" element={<BookingPage/>}/>
       </Routes>
       {/* <Footer/> */}
     </div>

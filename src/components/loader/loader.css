@@ -1,0 +1,48 @@
+.thunder-container {
+    position: relative;
+    width: 100px;
+    height: 300px;
+}
+
+.thunder {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 10px solid blue;
+    border-right: 10px solid red;
+    border-bottom: 40px solid black;
+    animation: thunder-animation 2s ease-in-out infinite;
+}
+
+@keyframes thunder-animation {
+    0%, 100% {
+        width: 0;
+        height: 0;
+        opacity: 0;
+    }
+    10%, 90% {
+        width: 20px;
+        height: 80px;
+        opacity: 1;
+    }
+    20%, 80% {
+        width: 40px;
+        height: 120px;
+        opacity: 1;
+    }
+    30%, 70% {
+        width: 60px;
+        height: 160px;
+        opacity: 1;
+    }
+    40%, 60% {
+        width: 80px;
+        height: 200px;
+        opacity: 1;
+    }
+    50% {
+        width: 100px;
+        height: 240px;
+        opacity: 1;
+    }
+}

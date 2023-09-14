@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
+import { useNavigate } from "react-router-dom"
 import axios from '../../axios/axios';
 import "./Login.css";
 
 export default function Login() {
+
+    const navigate = useNavigate();
 
     const [authMode, setAuthMode] = useState("signin");
 
@@ -69,16 +72,23 @@ export default function Login() {
         )
             .then(response => {
                 if (response.data.type = "success") {
-                    localStorage.setItem('authtoken', response.data.token);
+                    localStorage.setItem('authtoken', response.data.jwtToken);
+                    localStorage.setItem('role', response.data.userrole);
+                    localStorage.setItem('name', response.data.name);
                     console.log(response.data);
-                    alert("successfull");
+                    navigate("/dashboard");
                 } else {
+                    localStorage.setItem('authtoken', '');
+                    localStorage.setItem('role', '');
+                    localStorage.setItem('name', '');
                     console.log(response.data);
                     alert("Something went wrong")
                 }
             })
             .catch(response => {
                 localStorage.setItem('authtoken', '');
+                localStorage.setItem('role', '');
+                localStorage.setItem('name', '');
                 if (response.response) {
                     alert(response.response.data.message);
                 } else {
