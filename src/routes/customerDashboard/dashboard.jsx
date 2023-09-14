@@ -28,8 +28,8 @@ const Dashboard = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('authtoken')
-    console.log(token === "undefined")
-    if(token === "undefined"){
+    console.log(token)
+    if(!token){
       console.log("no token")
       navigate("/")
     }
