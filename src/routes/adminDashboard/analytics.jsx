@@ -82,12 +82,12 @@ export default function Analytics() {
                     </Row>
                     <Row>
                         <Col>
-                            <h5 className='py-1'>Fast charging ports: {station.chargingrate}</h5>
+                            <h5 className='py-1'>Fast charging ports: 4</h5>
                         </Col>
                     </Row>
                     <Row>
                         <Col>
-                            <h5 className='py-1'>: {station.chargingrate}</h5>
+                            <h5 className='py-1'> Size(sqfeet): 5637</h5>
                         </Col>
                     </Row>
                     {/* Add more details rows here */}
