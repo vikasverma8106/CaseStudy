@@ -74,7 +74,7 @@ const BookingPage = () => {
       <h1 className='my-5'>Powering up the future!!!</h1>
 
       <div>
-        <Container>
+        <Container style={{textAlign:"center"}}>
           <Form onSubmit={checkAvailability}>
             <Form.Group>
               <Form.Label>Select Start Time:</Form.Label>

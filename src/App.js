@@ -8,7 +8,7 @@ import BookingPage from "./routes/booking/booking";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import Footer from "./components/footer/footer.jsx";
+import Footer from "./components/Footer/Footer";
 import Analytics from "./routes/adminDashboard/analytics";
 import Dashboard from "./routes/customerDashboard/dashboard";
 import AdminPage from "./routes/adminDashboard/dashboard"
