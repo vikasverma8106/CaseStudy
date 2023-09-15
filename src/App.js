@@ -9,6 +9,7 @@ import BookingPage from "./routes/booking/booking";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Footer from "./components/footer/footer.jsx";
+import Analytics from "./routes/adminDashboard/analytics";
 import Dashboard from "./routes/customerDashboard/dashboard";
 import AdminPage from "./routes/adminDashboard/dashboard"
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard/>}/>
         <Route path="/book/:stationid" element={<BookingPage/>}/>
         <Route path="/admin/dashboard/:id" element={<AdminPage/>}/>
+        <Route path="/admin/analytics/:id" element={<Analytics/>}/>
       </Routes>
     </div>
   );

@@ -181,8 +181,8 @@ const AdminPage = () => {
       });
   };
 
-  const handleViewAnalytics = (stationId) => {
-
+  const handleViewAnalytics = (station) => {
+    navigate("/admin/analytics/" + station.stationid, { state: { station } });
   }
 
   return (
@@ -223,7 +223,7 @@ const AdminPage = () => {
               <Button className='mx-2' variant="danger" onClick={() => handleDeleteStation(station.stationid)}>
                 Delete
               </Button>
-              <Button className='mx-2' variant="success" onClick={() => handleViewAnalytics(station.stationid)}>
+              <Button className='mx-2' variant="success" onClick={() => handleViewAnalytics(station)}>
                 View
               </Button>
             </Card.Body>
