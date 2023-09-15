@@ -4,7 +4,7 @@ import "./Footer.css";
 export default function Footer() {
     return (
         <footer>
-            &copy; 2023 Your Website Name. All Rights Reserved.
+            &copy; 2023 EVCMS. All Rights Reserved.
         </footer>
     )
 }

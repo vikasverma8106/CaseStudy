@@ -25,6 +25,7 @@ function App() {
         <Route path="/admin/dashboard/:id" element={<AdminPage/>}/>
         <Route path="/admin/analytics/:id" element={<Analytics/>}/>
       </Routes>
+      <Footer/>
     </div>
   );
 }

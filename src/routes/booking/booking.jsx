@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
 import axios from '../../axios/axios';
+import { Container } from 'react-bootstrap';
 
 const BookingPage = () => {
   const { stationid } = useParams();
@@ -16,7 +17,7 @@ const BookingPage = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('authtoken')
-    if(!token){
+    if (!token) {
       console.log("no token")
       navigate("/")
     }
@@ -33,15 +34,15 @@ const BookingPage = () => {
       return;
     }
 
-    axios.post('/customer/ports',{
+    axios.post('/customer/ports', {
       StartTime: new Date(startTime).toISOString(),
       EndTime: new Date(endTime).toISOString(),
       Stationid: stationid
     }).then((response) => {
-        const availablePorts  = response.data.ports;
-        setAvailablePorts(availablePorts);
-        setIsAvailabilityChecked(true);
-      })
+      const availablePorts = response.data.ports;
+      setAvailablePorts(availablePorts);
+      setIsAvailabilityChecked(true);
+    })
       .catch((error) => {
         console.error('Error checking availability:', error);
         alert("something went wrong");
@@ -49,19 +50,19 @@ const BookingPage = () => {
   };
 
   const handleBooking = () => {
-    axios.post('/customer/book',{
+    axios.post('/customer/book', {
       StartTime: new Date(startTime).toISOString(),
       EndTime: new Date(endTime).toISOString(),
       Stationid: stationid
     }).then((response) => {
-        if(response.data.type === "success"){
-          navigate(-1);
-          alert("Port booked successfully. Your booking id is " + response.data.id);
-        }
-      })
+      if (response.data.type === "success") {
+        navigate(-1);
+        alert("Port booked successfully. Your booking id is " + response.data.id);
+      }
+    })
       .catch((error) => {
         console.log(error);
-        if(error.response.data)
+        if (error.response.data)
           alert(error.response.data.message);
         else
           alert("something went wrong");
@@ -69,33 +70,40 @@ const BookingPage = () => {
   };
 
   return (
-    <div>
-      <h1>Booking Page</h1>
+    <div style={{height:"72vh"}}>
+      <h1 className='my-5'>Powering up the future!!!</h1>
 
       <div>
-        <Form onSubmit={checkAvailability}>
-          <Form.Group>
-            <Form.Label>Select Start Time:</Form.Label>
-            <Form.Control
-              required
-              type="datetime-local"
-              value={startTime}
-              onChange={(e) => setStartTime(e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Select End Time:</Form.Label>
-            <Form.Control
-              required
-              type="datetime-local"
-              value={endTime}
-              onChange={(e) => setEndTime(e.target.value)}
-            />
-          </Form.Group>
-          <Button variant="primary" type='submit'>
-            Check Availability
-          </Button>
-        </Form>
+        <Container>
+          <Form onSubmit={checkAvailability}>
+            <Form.Group>
+              <Form.Label>Select Start Time:</Form.Label>
+              <Form.Control
+                required
+                type="datetime-local"
+                value={startTime}
+                onChange={(e) => setStartTime(e.target.value)}
+                style={{ width: "500px" }}
+                className='my-2'
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Select End Time:</Form.Label>
+              <Form.Control
+                required
+                type="datetime-local"
+                value={endTime}
+                onChange={(e) => setEndTime(e.target.value)}
+                style={{ width: "500px" }}
+                className='my-2'
+              />
+            </Form.Group>
+            <Button className='my-3' variant="primary" type='submit'>
+              Check Availability
+            </Button>
+          </Form>
+        </Container>
+
         {isAvailabilityChecked && (
           <div>
             <h3>Available Ports within Selected Time:</h3>

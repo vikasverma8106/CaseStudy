@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import axios from '../../axios/axios';
+import {Plus, Trash3Fill, PencilSquare, EyeFill} from "react-bootstrap-icons"
 
 const AdminPage = () => {
   const { id } = useParams();
@@ -191,7 +192,7 @@ const AdminPage = () => {
         <h3 className='py-3'> Howdy {name}, </h3>
         <Button
           style={{
-            backgroundColor: 'blue',
+            backgroundColor: '#07677f',
             color: 'white',
             textDecoration: 'none',
             padding: '10px',
@@ -200,13 +201,16 @@ const AdminPage = () => {
           }}
           onClick={handleAddStationClick}
         >
-          Add Station
+          <span style={{display:"flex", alignItems:"center"}}>
+                Add Station
+                <Plus className='mx-1'/>
+                </span>
         </Button>
       </div>
 
-      <div style={{ display: "flex", "justifyContent": "space-around", flexWrap: 'wrap' }} className=" my-4 card-container">
+      <div style={{ display: "flex", "justifyContent": "space-around", flexWrap: 'wrap' }} className=" py-4 card-container">
         {stations.map((station) => (
-          <Card key={station.id} style={{ width: '18rem', margin: '1rem' }}>
+          <Card key={station.id} style={{ width: '22rem', margin: '1rem' }}>
             <Card.Body>
               <Card.Title>{station.name}</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
@@ -218,13 +222,23 @@ const AdminPage = () => {
                 Total no. of ports: {station.ports}
               </Card.Text>
               <Button className='mx-2' variant="warning" onClick={() => handleEditStationClick(station)}>
+              <span style={{display:"flex", alignItems:"center"}}>
+                <PencilSquare className='mx-1'/>
                 Edit
+                </span>
               </Button>
               <Button className='mx-2' variant="danger" onClick={() => handleDeleteStation(station.stationid)}>
+                <span style={{display:"flex", alignItems:"center"}}>
+                <Trash3Fill className='mx-1'/>
                 Delete
+                </span>
+                
               </Button>
               <Button className='mx-2' variant="success" onClick={() => handleViewAnalytics(station)}>
+              <span style={{display:"flex", alignItems:"center"}}>
+                <EyeFill className='mx-1'/>
                 View
+                </span>
               </Button>
             </Card.Body>
           </Card>

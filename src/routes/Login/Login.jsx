@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom"
 import axios from '../../axios/axios';
 import "./Login.css";
+import image from "../../images/image.jpg"
 
 export default function Login() {
 
@@ -37,8 +38,8 @@ export default function Login() {
             {
                 Username: username,
                 Password: password,
-                Role:role,
-                Email:email
+                Role: role,
+                Email: email
             }
         )
             .then(response => {
@@ -73,13 +74,13 @@ export default function Login() {
             .then(response => {
                 if (response.data.type = "success") {
                     localStorage.setItem('authtoken', response.data.jwtToken);
-                    localStorage.setItem('role',response.data.userrole);
+                    localStorage.setItem('role', response.data.userrole);
                     localStorage.setItem('name', response.data.name);
                     localStorage.setItem('id', response.data.userid);
                     console.log(response.data);
-                    if(response.data.userrole === 'admin'){
+                    if (response.data.userrole === 'admin') {
                         navigate("/admin/dashboard/" + response.data.userid)
-                    }else{
+                    } else {
                         navigate("/dashboard");
                     }
                 } else {
@@ -107,18 +108,21 @@ export default function Login() {
     if (authMode === "signin") {
         return (
             <div className="Auth-form-container">
+                <div className="auth-image">
+                    <img src={image} alt="Your Image" />
+                </div>
                 <div className="auth-form">
                     <div className="Auth-form-content">
-                        <h3 className="Auth-form-title">Sign In</h3>
-                        <div className="text-center">
+                        <h3 className="Auth-form-title" >Sign In</h3>
+                        <div className="text-center" style={{ color: '#BFE0B5' }}>
                             Not registered yet?{" "}
-                            <span className="link-primary" onClick={changeAuthMode}>
+                            <span className="signup-link" onClick={changeAuthMode} style={{ color: '#F63D38' }}>
                                 Sign Up
                             </span>
                         </div>
                         <form onSubmit={handleSubmit}>
                             <div className="form-group mt-3">
-                                <label>Username</label>
+                                <label style={{ color: '#BFE0B5' }}>Username</label>
                                 <input
                                     name="username"
                                     type="text"
@@ -128,7 +132,7 @@ export default function Login() {
                                 />
                             </div>
                             <div className="form-group mt-3">
-                                <label>Password</label>
+                                <label style={{ color: '#BFE0B5' }}>Password</label>
                                 <input
                                     name='password'
                                     type="password"
@@ -138,7 +142,7 @@ export default function Login() {
                                 />
                             </div>
                             <div className="d-grid gap-2 mt-3">
-                                <button type="submit" className="btn btn-primary">
+                                <button type="submit" className="btn btn-primary" style={{ backgroundColor: '#F63D38' }}>
                                     Submit
                                 </button>
                             </div>
@@ -151,19 +155,23 @@ export default function Login() {
 
     return (
         <div className="Auth-form-container">
+            <div className="auth-image">
+                <img className='hero-image' src={image} alt="Your Image" />
+            </div>
+
             <div className="auth-form">
                 <div className="Auth-form-content">
                     <h3 className="Auth-form-title">Sign Up</h3>
 
-                    <div className="text-center">
+                    <div className="text-center" style={{ color: '#BFE0B5' }}>
                         Already registered?{" "}
-                        <span className="link-primary" onClick={changeAuthMode}>
+                        <span className="signin-link" onClick={changeAuthMode} style={{ color: '#F63D38' }}>
                             Sign In
                         </span>
                     </div>
                     <form onSubmit={handleSubmit}>
                         <div className="form-group mt-3">
-                            <label>Username</label>
+                            <label style={{ color: '#BFE0B5' }}>Username</label>
                             <input
                                 name="username"
                                 type="text"
@@ -173,7 +181,7 @@ export default function Login() {
                             />
                         </div>
                         <div className="form-group mt-3">
-                            <label>Enter Email</label>
+                            <label style={{ color: '#BFE0B5' }}>Enter Email</label>
                             <input
                                 name="email"
                                 type="email"
@@ -184,7 +192,7 @@ export default function Login() {
                         </div>
 
                         <div className="form-group mt-3">
-                            <label>Enter Password</label>
+                            <label style={{ color: '#BFE0B5' }}>Enter Password</label>
                             <input
                                 name="password"
                                 type="password"
@@ -194,7 +202,7 @@ export default function Login() {
                             />
                         </div>
                         <div className="form-group mt-3">
-                            <label for="role-type">Role</label>
+                            <label for="role-type" style={{ color: '#BFE0B5' }}>Role</label>
 
                             <select name="role" id="role" className="form-control mt-1" required>
                                 <option value="" hidden>
@@ -205,7 +213,7 @@ export default function Login() {
                             </select>
                         </div>
                         <div className="d-grid gap-2 mt-3">
-                            <button type="submit" className="btn btn-primary">
+                            <button type="submit" className="btn btn-primary" style={{ backgroundColor: '#F63D38' }}>
                                 Submit
                             </button>
                         </div>

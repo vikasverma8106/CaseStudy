@@ -1,9 +1,9 @@
 .bg-custom {
     padding: 0 1rem;
-    background-color: yellow;
+    background-color: #07677f;
 }
 
 .brand{
-    color: red !important;
+    color: white !important;
     font-weight: 700;
 }

@@ -7,12 +7,13 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import axios from '../../axios/axios';
 import Loader from '../../components/loader/loader';
+import { Search } from 'react-bootstrap-icons';
 
 const Dashboard = () => {
 
   const navigate = useNavigate();
 
-  const [stationsData, setStationsData] = useState([]); 
+  const [stationsData, setStationsData] = useState([]);
   const [locationFilter, setLocationFilter] = useState('');
   const [loading, setLoading] = useState(true);
 
@@ -23,13 +24,13 @@ const Dashboard = () => {
   };
 
   const navstyles = {
-    backgroundColor : "#CD5C5C"
+    backgroundColor: "#CD5C5C"
   }
 
   useEffect(() => {
     const token = localStorage.getItem('authtoken')
     console.log(token)
-    if(!token){
+    if (!token) {
       console.log("no token")
       navigate("/")
     }
@@ -47,40 +48,47 @@ const Dashboard = () => {
   }, []);
 
   //const commonstyle ={
-    //backgroundColor: '#7CFC00'
+  //backgroundColor: '#7CFC00'
   //}
 
   return (
-  <div className='dashboard-container'>
-    <Container>
-      <Row>
-        <Col>
-          <h2 className="mt-4">Howdy {name} !!</h2>
-          <Form.Group controlId="locationFilter">
-            <Form.Label>Filter by Location:</Form.Label>
-            <Form.Control
-              type="text"
-              value={locationFilter}
-              onChange={handleLocationFilterChange}
-            />
-          </Form.Group>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <div className="station-list">
+    <div className='dashboard-container'>
+      <Container>
+        <Row>
+          <Col>
+            <h2 className="my-4">Howdy {name} !!</h2>
+            <Form.Group controlId="locationFilter">
+              <Form.Control
+                placeholder='Search by Location'
+                type="text"
+                value={locationFilter}
+                onChange={handleLocationFilterChange}
+              />
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row className="my-5">
           {stationsData
-  .filter((station) =>
-    station.location.toLowerCase().includes(locationFilter.toLowerCase())
-  )
-  .map((station) => (
-    <Station key={station.stationid} station={station} />
-  ))}
-          </div>
-        </Col>
-      </Row>
-    </Container>
-</div>
+            .filter((station) =>
+              station.location.toLowerCase().includes(locationFilter.toLowerCase())
+            )
+            .map((station, index) => (
+              // Wrap every two cards in a row
+              (index % 2 === 0) && <Row key={station.stationid}>
+                <Col md={6} className="my-3">
+                  <Station key={station.stationid} station={station} />
+                </Col>
+                {stationsData[index + 1] && (
+                  <Col md={6} className="my-3">
+                    <Station key={stationsData[index + 1].stationid} station={stationsData[index + 1]} />
+                  </Col>
+                )}
+              </Row>
+            ))}
+        </Row>
+
+      </Container>
+    </div>
   );
 };
 

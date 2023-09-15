@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: #ebf8e6;
 }
 
 .App-logo {
@@ -35,4 +36,19 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.auth-image {
+  /*flex: 1; / This makes the image div take up the remaining space */
+  display: flex;
+  justify-content: flex-end; /* Align the image to the right */
+  align-items: center;
+  padding: 20px; /* Adjust the padding as needed */
+  position:fixed;
+  right:0;
+}
+
+.auth-image img {
+  max-width: 100%; /* Ensure the image doesn't exceed its container */
+  height: auto; /* Maintain the aspect ratio of the image */
 }
